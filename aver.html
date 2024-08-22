@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorryaver</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f7f7f7;
+        }
+        .container {
+            text-align: center;
+            background-color: #fff;
+            padding: 50px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        button {
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 20px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        button:hover {
+            background-color: #ff4b4b;
+        }
+        #counter, #amountCounter {
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        #clearBtn {
+            background-color: #add8e6;
+            color: black;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 20px;
+            border: none;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        #clearBtn:hover {
+            background-color: #87cefa;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Punch or Pay</h1>
+        <button id="punchCandyBtn">Punch Aver</button>
+        <div id="counter">Punches: 0</div>
+        
+        <button id="giveDollarBtn">Give Aver $1</button>
+        <div id="amountCounter">Amount given: $0</div>
+
+        <button id="clearBtn">Clear</button>
+    </div>
+
+    <script>
+        const counterDisplay = document.getElementById('counter');
+        const amountCounterDisplay = document.getElementById('amountCounter');
+        const punchCandyBtn = document.getElementById('punchCandyBtn');
+        const giveDollarBtn = document.getElementById('giveDollarBtn');
+        const clearBtn = document.getElementById('clearBtn');
+
+        let punchCount = localStorage.getItem('punchCount') ? parseInt(localStorage.getItem('punchCount')) : 0;
+        let amountGiven = localStorage.getItem('amountGiven') ? parseFloat(localStorage.getItem('amountGiven')) : 0;
+
+        counterDisplay.textContent = `Punches: ${punchCount}`;
+        amountCounterDisplay.textContent = `Amount given: $${amountGiven.toFixed(2)}`;
+
+        punchCandyBtn.addEventListener('click', () => {
+            punchCount += 1;
+            localStorage.setItem('punchCount', punchCount);
+            counterDisplay.textContent = `Punches: ${punchCount}`;
+        });
+
+        giveDollarBtn.addEventListener('click', () => {
+            amountGiven += 1.00;
+            localStorage.setItem('amountGiven', amountGiven);
+            amountCounterDisplay.textContent = `Amount given: $${amountGiven.toFixed(2)}`;
+        });
+
+        clearBtn.addEventListener('click', () => {
+            punchCount = 0;
+            amountGiven = 0;
+            localStorage.setItem('punchCount', punchCount);
+            localStorage.setItem('amountGiven', amountGiven);
+            counterDisplay.textContent = `Punches: ${punchCount}`;
+            amountCounterDisplay.textContent = `Amount given: $${amountGiven.toFixed(2)}`;
+        });
+    </script>
+</body>
+</html>
